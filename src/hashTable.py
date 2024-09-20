@@ -45,4 +45,64 @@ class HashTable:
             self.size += 1
     
     def search(self, key):
-        pass
+        index = self._hash(key)
+
+        currentNode = self.table[index]
+        while currentNode:
+            if currentNode.key == key:
+                return currentNode.value
+            currentNode = currentNode.next
+        raise KeyError(key)
+
+    def remove(self, key):
+        index = self._hash(key)
+
+        previousNode = None
+        currentNode = self.table[index]
+        while currentNode:
+            if currentNode.key == key:
+                if previousNode:
+                    previousNode.next = currentNode.next
+                else:
+                    self.table[index] = currentNode.next
+                self.size -= 1
+                return
+            previousNode = currentNode
+            currentNode = currentNode.next
+        raise KeyError(key)
+    
+    def __len__(self):
+        return self.size
+    
+    def __contains__(self, key):
+        try:
+            self.search(key)
+            return True
+        except KeyError:
+            return False
+
+if __name__ == '__main__': 
+    # Create a hash table
+    ht = HashTable(5)
+
+    # add some key-value pairs
+    ht.insert("apple", 3)
+    ht.insert("banana", 2)
+    ht.insert("cherry", 5)
+
+    # check if hash table contains a key
+    print("apple" in ht)
+    print("peach" in ht)
+
+    # Get the value for a key
+    print(ht.search("banana"))
+
+    # update the value for a key
+    ht.insert("banana", 4)
+    print(ht.search("banana"))
+
+    # remove the key
+    ht.remove("apple")
+    
+    # check the size
+    print(len(ht))
