@@ -5,16 +5,39 @@ class Node:
 
 class LinkedList:
     def __init__(self) -> None:
-        pass
+        self.head = None
 
     def insertAtBegin(self, val):
-        pass
+        newNode = Node(val)
+        if self.head is None:
+            self.head = newNode
+            return
+        else:
+            newNode.next = self.head
+            self.head = newNode
 
     def insertAtEnd(self, val):
         pass
 
-    def insertAtIndex(self, idx, val):
-        pass
+    def insertAtIndex(self, val, idx):
+        if idx == 0:
+            self.insertAtBegin(val)
+            return
+
+        pos = 0
+        curNode = self.head
+        while curNode != None and pos+1 != idx:
+            pos += 1
+            curNode = curNode.next
+        if curNode != None:
+            newNode = Node(val)
+            newNode.next = curNode.next
+            curNode.next = newNode
+        else:
+            raise Exception("Index not found")
+            
+
+
 
     def removeNode(self, val):
         pass
