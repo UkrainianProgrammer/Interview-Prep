@@ -63,10 +63,28 @@ class LinkedList:
             return
         self.head = self.head.next
 
+    def removeNodeAtIndex(self, idx):
+        if self.head == None:
+            return
+        
+        curNode = self.head
+        pos = 0
+        if pos == idx:
+            self.removeFirstNode()
+        else:
+            while curNode != None and pos+1 != idx:
+                curNode = curNode.next
+                pos += 1
+            if curNode != None:
+                curNode.next = curNode.next.next
+            else:
+                raise Exception(f"{idx} not found")
+
     def removeLastNode(self):
         if self.head is None:
             return
-
+        
+        curNode = self.head
         while curNode != None and curNode.next.next != None:
             curNode = curNode.next
 
@@ -85,7 +103,7 @@ class LinkedList:
         else:
             curNode.next = curNode.next.next
 
-    def printAll(self):
+    def printLL(self):
         if self.head:
             curNode = self.head
             while curNode:
@@ -114,7 +132,7 @@ if __name__ == '__main__':
     llist.insertAtEnd('b')
     llist.insertAtBegin('c')
     llist.insertAtEnd('d')
-    # llist.insertAtIndex('g', 2)
+    llist.insertAtIndex('g', 2)
 
     # print the linked list
     print("Node Data")
@@ -122,11 +140,11 @@ if __name__ == '__main__':
 
     # remove a nodes from the linked list
     print("\nRemove First Node")
-    llist.remove_first_node()
+    llist.removeFirstNode()
     print("Remove Last Node")
-    llist.remove_last_node()
+    llist.removeLastNode()
     print("Remove Node at Index 1")
-    llist.remove_at_index(1)
+    llist.removeNodeAtIndex(1)
 
     # print the linked list again
     print("\nLinked list after removing a node:")
