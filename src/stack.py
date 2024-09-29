@@ -19,19 +19,40 @@ class Stack:
         while cur:
             out += str(cur.val) + "->"
             cur = cur.next
-        return out[::-2]
+        return out[:-2]
 
     def getSize(self):
-        pass
+        return self.size
 
     def isEmpty(self):
-        pass
+        return self.size == 0
 
     def peek(self):
-        pass
+        if self.isEmpty():
+            return None
+        return self.head.next.value
 
     def push(self, val):
-        pass
+        newNode = Node(val)
+        newNode.next = self.head.next
+        self.head.next = newNode
+        self.size += 1
 
     def pop(self):
-        pass
+        if self.isEmpty():
+            raise Exception("Popping from an empty stack")
+        removeNode = self.head.next
+        self.head.next = removeNode.next
+        self.size -= 1
+        return removeNode.val
+
+if __name__ == "__main__":
+    stack = Stack()
+    for i in range(1, 11):
+        stack.push(i)
+    print(f"Stack: {stack}")
+
+    for _ in range(1, 6):
+        top_value = stack.pop()
+        print(f"Pop: {top_value}") # variable name changed
+    print(f"Stack: {stack}")
