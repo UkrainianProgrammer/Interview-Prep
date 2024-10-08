@@ -24,3 +24,29 @@ class MinHeap:
     # node at pos
     def rightChild(self, pos):
         return (2 * pos) + 1
+
+    # return true if the passed node is a leaf node
+    def isLeaf(self, pos):
+        return pos*2 > self.size
+
+    # swap two nodes of the heap
+    def swap(self, fpos, spos):
+        self.Heap[fpos], self.Heap[spos] = self.Heap[spos], self.Heap[fpos]
+    
+    # heapify the node at pos
+    def minHeapify(self, pos):
+        # if the node is a non-leaf and greater than any of its 
+        # children
+        if not self.isLeaf(pos):
+            if (self.Heap[pos] > self.Heap[self.leftChild(pos)] or
+                self.Heap[pos] > self.Heap[self.rightChild(pos)]):
+
+                # swap with the left child and heapify
+                if self.Heap[self.leftChild(pos)] < self.Heap[self.rightChild(pos)]:
+                    self.swap(pos, self.leftChild(pos))
+                    self.minHeapify(self.leftChild(pos))
+                
+                # swap with the right child and heapify
+                else:
+                    self.swap(pos, self.rightChild(pos))
+                    self.minHeapify(self.rightChild(pos))
