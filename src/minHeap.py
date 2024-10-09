@@ -50,3 +50,24 @@ class MinHeap:
                 else:
                     self.swap(pos, self.rightChild(pos))
                     self.minHeapify(self.rightChild(pos))
+    
+    # insert a node into the heap
+    def insert(self, node):
+        if self.size >= self.maxsize:
+            return
+        
+        self.size += 1
+        self.Heap[self.size] = node
+
+        cur = self.size
+        # preserve the minHeap structure
+        while self.Heap[cur] < self.Heap[self.parent(cur)]:
+            self.swap(cur, self.parent(cur))
+            cur = self.parent(cur)
+
+    # print the contents
+    def Print(self):
+        for i in range(1, (self.size//2)+1):
+            print("Parent: " + str(self.Heap[i]) + "Left Child: " +
+                  str(self.Heap[2 * i]) + "Right Child: " + 
+                  str(self.Heap[2 * i + 1]))
