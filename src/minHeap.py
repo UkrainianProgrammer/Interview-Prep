@@ -68,6 +68,37 @@ class MinHeap:
     # print the contents
     def Print(self):
         for i in range(1, (self.size//2)+1):
-            print("Parent: " + str(self.Heap[i]) + "Left Child: " +
-                  str(self.Heap[2 * i]) + "Right Child: " + 
+            print("Parent: " + str(self.Heap[i]) + " Left Child: " +
+                  str(self.Heap[2 * i]) + " Right Child: " + 
                   str(self.Heap[2 * i + 1]))
+
+    # build minHeap
+    def minHeap(self):
+        for pos in range(self.size//2, 0, -1):
+            self.minHeapify(pos)
+    
+    # remove and return the min element
+    def remove(self):
+        popped = self.Heap[self.FRONT]
+        self.Heap[self.FRONT] = self.Heap[self.size]
+        self.size -= 1
+        self.minHeapify(self.FRONT)
+        return popped
+
+if __name__ == '__main__':
+      
+    print('The minHeap is ') 
+    minHeap = MinHeap(15) 
+    minHeap.insert(5) 
+    minHeap.insert(3) 
+    minHeap.insert(17) 
+    minHeap.insert(10) 
+    minHeap.insert(84) 
+    minHeap.insert(19) 
+    minHeap.insert(6) 
+    minHeap.insert(22) 
+    minHeap.insert(9) 
+    minHeap.minHeap() 
+  
+    minHeap.Print() 
+    print("The Min val is " + str(minHeap.remove())) 
